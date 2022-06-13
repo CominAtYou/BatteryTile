@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- I stole this from AOSP. -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108"
+    android:tint="?android:attr/colorControlNormal"
+    android:autoMirrored="true">
+  <group android:scaleX="1.98"
+      android:scaleY="1.98"
+      android:translateX="30.24"
+      android:translateY="30.24">
+      <path
+          android:fillColor="#FFF"
+          android:pathData="M16.67,4H14.5V2h-5v2H7.33C6.6,4 6,4.6 6,5.33V15v5.67C6,21.4 6.6,22 7.33,22h9.33C17.4,22 18,21.4 18,20.67V15V5.33C18,4.6 17.4,4 16.67,4zM16,15v5H8v-5V6h8V15z"/>
+  </group>
+</vector>
