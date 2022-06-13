@@ -1,0 +1,23 @@
+name: build
+
+on:
+  push:
+    paths:
+      - '**.java'
+      - '**.gradle'
+      - '**.xml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, '[skip build]')"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Gradle Build
+      run: bash ./gradlew build
+    - name: Archive Lint Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: lint-report
+        path: /home/runner/work/BatteryTile/Battery\ Tile/app/build/reports/lint-results-debug.html
