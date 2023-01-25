@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.cominatyou.batterytile"
         minSdk 29
-        targetSdk 32
+        targetSdk 33
         versionCode 2
         versionName "1.1.0"
 
