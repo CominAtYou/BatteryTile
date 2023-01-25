@@ -16,9 +16,9 @@ were removed. However, this would defeat one of the purposes of the tile, but th
 
 ## Screenshots
 ### While Charging
-![image](https://user-images.githubusercontent.com/35669235/173282400-f93a2aac-9461-4a92-b677-f470289a78ce.png)
+![](https://user-images.githubusercontent.com/35669235/214475667-29f97f1c-0731-41e6-9af4-e2966f61d47c.png)
 
 ### While on Battery Power
-![image](https://user-images.githubusercontent.com/35669235/173282195-63ef904c-8b10-4ac0-87b4-2e2ade209a48.png)
+![](https://user-images.githubusercontent.com/35669235/214475766-8a7b21dc-36e5-47ee-8939-1a4fcbab132e.png)
 
 
