@@ -1,3 +1,11 @@
+<!DOCTYPE resources [
+<!ENTITY bull "•">
+]>
+
 <resources>
     <string name="app_name">Battery Tile</string>
+    <string name="fully_charged">100% • Charged</string>
+    <string name="charging_no_time_estimate">Charging • %1$d%%</string>
+    <string name="charging_more_than_one_hour_left">%1$d%% • %2$dh %3$dm until full</string>
+    <string name="charging_less_than_one_hour_left">%1$d%% • %2$dm until full</string>
 </resources>
