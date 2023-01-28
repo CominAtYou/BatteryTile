@@ -64,8 +64,6 @@ public class QuickSettingsTileService extends TileService {
 
     @Override
     public void onStartListening() {
-        super.onStartListening();
-
         final IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         Intent intent = registerReceiver(receiver, filter);
 
