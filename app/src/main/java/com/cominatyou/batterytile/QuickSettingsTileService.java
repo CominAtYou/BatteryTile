@@ -30,6 +30,10 @@ public class QuickSettingsTileService extends TileService {
             if (remainingTime < 1) {
                 getQsTile().setSubtitle(getString(R.string.charging_no_time_estimate, batteryLevel));
             }
+            else if (remainingTime <= 60000) {
+                // case for when less than 1m is remaining - duration returns 0 minutes if less than 1m which is undesirable
+                getQsTile().setSubtitle(getString(R.string.charging_less_than_one_hour_left, batteryLevel, 1));
+            }
             else {
                 Duration duration = Duration.ofMillis(remainingTime);
                 final long hours = duration.toHours();
