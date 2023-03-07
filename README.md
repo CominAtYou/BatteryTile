@@ -14,11 +14,17 @@ Theoretically, compatibility could be extended to cover API 24+ as well (Android
 [Tile#setSubtitle](https://developer.android.com/reference/android/service/quicksettings/Tile#setSubtitle(java.lang.CharSequence))
 were removed. However, this would defeat one of the purposes of the tile, but the option to do so is available to anyone who wishes to compile it themselves.
 
+## Download
+
+[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
+     alt="Get it on IzzyOnDroid"
+     height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.cominatyou.batterytile)
+
+[Download the latest APK from the Releases Section](https://github.com/CominAtYou/BatteryTile/releases/latest)
+
 ## Screenshots
 ### While Charging
 ![](https://user-images.githubusercontent.com/35669235/214475667-29f97f1c-0731-41e6-9af4-e2966f61d47c.png)
 
 ### While on Battery Power
 ![](https://user-images.githubusercontent.com/35669235/214475766-8a7b21dc-36e5-47ee-8939-1a4fcbab132e.png)
-
-
