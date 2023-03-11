@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="?attr/colorSurface">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:text="@string/preferences_bottom_sheet_title"
+        android:textSize="28sp"
+        android:id="@+id/preferences_bottom_sheet_title"
+        android:textColor="?android:textColorPrimary" />
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:clickable="true"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/preferences_bottom_sheet_title"
+        android:layout_marginTop="12dp"
+        android:paddingVertical="16dp"
+        android:id="@+id/emulate_power_save_tile_preference_layout"
+        android:background="?attr/selectableItemBackground">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="20sp"
+            android:layout_marginStart="24dp"
+            android:id="@+id/emulate_power_save_tile_preference_title"
+            android:textColor="?android:textColorPrimary"
+            android:text="@string/emulate_power_save_tile_preference_title" />
+
+        <TextView
+            android:id="@+id/emulate_power_save_tile_preference_description"
+            android:layout_width="260dp"
+            android:layout_marginTop="2dp"
+            android:layout_height="wrap_content"
+            android:text="@string/emulate_power_save_tile_preference_description"
+            android:textColor="?android:textColorSecondary"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/emulate_power_save_tile_preference_title"
+            app:layout_constraintTop_toBottomOf="@id/emulate_power_save_tile_preference_title" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/emulate_power_save_tile_preference_switch"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@id/emulate_power_save_tile_preference_layout"
+        android:paddingVertical="16dp"
+        android:id="@+id/tappable_tile_layout"
+        android:background="?attr/selectableItemBackground">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="20sp"
+            android:layout_marginStart="24dp"
+            android:id="@+id/tappable_tile_title"
+            android:textColor="?android:textColorPrimary"
+            android:text="@string/enable_tap_action_preference_title" />
+
+        <TextView
+            android:id="@+id/tappable_tile_description"
+            android:layout_width="250dp"
+            android:layout_marginTop="2dp"
+            android:layout_height="wrap_content"
+            android:text="@string/enable_tap_action_preference_description"
+            android:textColor="?android:textColorSecondary"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tappable_tile_title"
+            app:layout_constraintTop_toBottomOf="@id/tappable_tile_title" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tappable_tile_switch"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
