@@ -10,6 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:theme="@style/Theme.BatteryTile"
         tools:targetApi="31">
 
         <service android:name=".QuickSettingsTileService"
@@ -24,8 +25,7 @@
         </service>
 
         <activity android:name=".QuickSettingsTileLongPressHandler"
-            android:exported="true"
-            android:theme="@style/Theme.Transparent">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES"/>
             </intent-filter>
