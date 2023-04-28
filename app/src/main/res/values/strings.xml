@@ -16,4 +16,9 @@
     <string name="requires_adb_dialog_title">Hold up!</string>
     <string name="requires_adb_dialog_description">To enable this, you\'ll need to grant the app permission to do modify system settings. To do that, connect your phone to your computer with USB debugging enabled, and issue the following command via ADB:</string>
     <string name="requires_adb_dialog_description_second_half">Once you\'ve done that, you\'ll be able to enable this setting.</string>
+    <string name="battery_tile_label">Battery</string>
+    <string name="power_save_tile_label">Battery Saver</string>
+    <string name="power_saver_tile_on_subtitle">On</string>
+    <string name="power_saver_tile_off_subtitle">Off</string>
+    <string name="power_save_tile_unavailable_subtitle">Unavailable</string>
 </resources>

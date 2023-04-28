@@ -4,13 +4,19 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Icon;
 import android.os.BatteryManager;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 import java.time.Duration;
 
 public class QuickSettingsTileService extends TileService {
+    private boolean isTappableTileEnabled = false;
+    private boolean shouldEmulatePowerSaveTile = false;
+
     private void setBatteryInfo(Intent intent) {
         final int batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         final int plugState = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
@@ -18,12 +24,15 @@ public class QuickSettingsTileService extends TileService {
 
         final boolean isPluggedIn = plugState == BatteryManager.BATTERY_PLUGGED_AC || plugState == BatteryManager.BATTERY_PLUGGED_USB || plugState == BatteryManager.BATTERY_PLUGGED_WIRELESS;
         final boolean isCharging = batteryState == BatteryManager.BATTERY_STATUS_CHARGING;
-        final boolean isFullyCharged = isPluggedIn && batteryLevel == 100;
+        final boolean isFullyCharged = isPluggedIn && batteryState == BatteryManager.BATTERY_STATUS_FULL;
 
         if (isFullyCharged) {
             getQsTile().setSubtitle(getString(R.string.fully_charged));
+            getQsTile().setState(Tile.STATE_ACTIVE);
         }
         else if (isCharging) {
+            getQsTile().setState(Tile.STATE_ACTIVE);
+
             final long remainingTime = getSystemService(BatteryManager.class).computeChargeTimeRemaining();
 
             // computeChargeTimeRemaining() returns 0 at times for some reason, so check for < 1, not -1
@@ -50,29 +59,103 @@ public class QuickSettingsTileService extends TileService {
         }
         else {
             getQsTile().setSubtitle(batteryLevel + "%");
+            if (isTappableTileEnabled) getQsTile().setState(Tile.STATE_INACTIVE);
         }
 
         getQsTile().updateTile();
     }
 
-    BroadcastReceiver receiver = new BroadcastReceiver() {
+    private void setPowerSaveInfo() {
+        final boolean shouldEmulatePowerSaveTile = getSharedPreferences("preferences", MODE_PRIVATE).getBoolean("emulatePowerSaveTile", false);
+
+        if (getSystemService(PowerManager.class).isPowerSaveMode()) {
+            getQsTile().setState(Tile.STATE_ACTIVE);
+            if (shouldEmulatePowerSaveTile) getQsTile().setSubtitle(getString(R.string.power_saver_tile_on_subtitle));
+        }
+        else {
+            getQsTile().setState(Tile.STATE_INACTIVE);
+            if (shouldEmulatePowerSaveTile) getQsTile().setSubtitle(getString(R.string.power_saver_tile_off_subtitle));
+        }
+
+        getQsTile().updateTile();
+    }
+
+    BroadcastReceiver batteryStateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             setBatteryInfo(intent);
         }
     };
 
+    BroadcastReceiver powerSaveModeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            setPowerSaveInfo();
+        }
+    };
+
     @Override
     public void onStartListening() {
-        final IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        Intent intent = registerReceiver(receiver, filter);
+        shouldEmulatePowerSaveTile = getSharedPreferences("preferences", MODE_PRIVATE).getBoolean("emulatePowerSaveTile", false);
+        isTappableTileEnabled = getSharedPreferences("preferences", MODE_PRIVATE).getBoolean("tappableTileEnabled", false);
 
-        getQsTile().setState(Tile.STATE_ACTIVE);
-        setBatteryInfo(intent);
+        final IntentFilter batteryChangedFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        final Intent batteryChangedIntent = registerReceiver(batteryStateReceiver, batteryChangedFilter);
+
+        final int status = batteryChangedIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
+
+        if (shouldEmulatePowerSaveTile) {
+            unregisterReceiver(batteryStateReceiver);
+
+            if (isCharging) {
+                getQsTile().setState(Tile.STATE_UNAVAILABLE);
+                getQsTile().setSubtitle(getString(R.string.power_save_tile_unavailable_subtitle));
+                getQsTile().updateTile();
+            }
+            else {
+                getQsTile().setLabel(getString(R.string.power_save_tile_label));
+                getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_battery_saver));
+                registerReceiver(powerSaveModeReceiver, new IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED));
+                setPowerSaveInfo();
+            }
+        }
+        else {
+            getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_qs_battery));
+            getQsTile().setLabel(getString(R.string.battery_tile_label));
+
+            if (!isTappableTileEnabled || isCharging) {
+                getQsTile().setState(Tile.STATE_ACTIVE);
+            }
+            else {
+                final IntentFilter powerSaveChangedFilter = new IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
+                registerReceiver(powerSaveModeReceiver, powerSaveChangedFilter);
+                setPowerSaveInfo();
+            }
+
+            setBatteryInfo(batteryChangedIntent);
+        }
+    }
+
+    @Override
+    public void onClick() {
+        super.onClick();
+        if (!isTappableTileEnabled) return;
+
+        final boolean isInPowerSaveMode = getSystemService(PowerManager.class).isPowerSaveMode();
+
+        Settings.Global.putInt(getContentResolver(), "low_power", isInPowerSaveMode ? 0 : 1);
+        getQsTile().setState(isInPowerSaveMode ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
+        getQsTile().updateTile();
     }
 
     @Override
     public void onStopListening() {
-        unregisterReceiver(receiver);
+        if (isTappableTileEnabled) {
+            unregisterReceiver(powerSaveModeReceiver);
+        }
+        if (!shouldEmulatePowerSaveTile) {
+            unregisterReceiver(batteryStateReceiver);
+        }
     }
 }
