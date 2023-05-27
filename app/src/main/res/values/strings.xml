@@ -21,4 +21,6 @@
     <string name="power_saver_tile_on_subtitle">On</string>
     <string name="power_saver_tile_off_subtitle">Off</string>
     <string name="power_save_tile_unavailable_subtitle">Unavailable</string>
+    <string name="power_save_tile_warning_title">Hold up! This is important.</string>
+    <string name="power_save_system_warning_description">Android doesn\'t natively support apps changing the state of Battery Saver, and as such, this feature is experimental as of now.\n\nThe workaround the app uses can cause the Android System to no longer be able to control the Battery Saver setting after tapping the tile, meaning that things like the system Battery Saver tile won\'t work.\n\nIf you encounter this, tapping this tile (the tile from this app) again to restore the Battery Saver setting to its previous state should fix it.</string>
 </resources>

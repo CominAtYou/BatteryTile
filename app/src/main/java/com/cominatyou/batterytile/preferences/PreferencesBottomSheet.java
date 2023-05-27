@@ -12,11 +12,15 @@ import androidx.annotation.NonNull;
 
 import android.Manifest;
 
+import com.cominatyou.batterytile.R;
 import com.cominatyou.batterytile.databinding.BottomSheetPreferencesBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class PreferencesBottomSheet extends BottomSheetDialogFragment {
     private BottomSheetPreferencesBinding binding;
+    boolean showDialog = false;
+
     private void forceTappableTile(boolean force) {
         binding.tappableTileSwitch.setChecked(force);
         binding.tappableTileSwitch.setEnabled(!force);
@@ -45,6 +49,13 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
                 AdbDialog.show(requireContext());
             }
             else {
+                if (state && showDialog) {
+                    new MaterialAlertDialogBuilder(requireContext())
+                            .setTitle(R.string.power_save_tile_warning_title)
+                            .setMessage(R.string.power_save_system_warning_description)
+                            .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
+                            .show();
+                }
                 requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE)
                         .edit()
                         .putBoolean("tappableTileEnabled", state)
@@ -74,6 +85,16 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
                         .apply();
             }
         });
+
+        if (requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE).getBoolean("emulatePowerSaveTile", false)) {
+            binding.emulatePowerSaveTilePreferenceSwitch.setChecked(true);
+            forceTappableTile(true);
+        }
+        else if (requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE).getBoolean("tappableTileEnabled", false)) {
+            binding.tappableTileSwitch.setChecked(true);
+        }
+
+        showDialog = true;
 
         return binding.getRoot();
     }
