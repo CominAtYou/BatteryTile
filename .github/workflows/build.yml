@@ -21,7 +21,7 @@ jobs:
     - name: Gradle Build
       run: bash ./gradlew build
     - name: Archive Lint Report
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: lint-report
         path: /home/runner/work/BatteryTile/BatteryTile/app/build/reports/lint-results-debug.html
