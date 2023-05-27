@@ -28,8 +28,8 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
         binding.tappableTileDescription.setAlpha(force ? 0.4f : 1);
         binding.tappableTileLayout.setEnabled(!force);
     }
-    private boolean checkForPermission() {
-        return requireContext().checkCallingOrSelfPermission(Manifest.permission.WRITE_SECURE_SETTINGS) == PackageManager.PERMISSION_GRANTED;
+    private boolean checkIfPermissionIsDenied() {
+        return requireContext().checkCallingOrSelfPermission(Manifest.permission.WRITE_SECURE_SETTINGS) != PackageManager.PERMISSION_GRANTED;
     }
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = BottomSheetPreferencesBinding.inflate(inflater, container, false);
@@ -44,7 +44,7 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
         });
 
         binding.tappableTileSwitch.setOnCheckedChangeListener((self, state) -> {
-            if (!checkForPermission() && state) {
+            if (checkIfPermissionIsDenied() && state) {
                 self.setChecked(false);
                 AdbDialog.show(requireContext());
             }
@@ -73,7 +73,7 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
         });
 
         binding.emulatePowerSaveTilePreferenceSwitch.setOnCheckedChangeListener((self, state) -> {
-            if (!checkForPermission() && state) {
+            if (checkIfPermissionIsDenied() && state) {
                 self.setChecked(false);
                 AdbDialog.show(requireContext());
             }
