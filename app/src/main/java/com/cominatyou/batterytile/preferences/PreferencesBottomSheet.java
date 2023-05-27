@@ -34,14 +34,7 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = BottomSheetPreferencesBinding.inflate(inflater, container, false);
 
-        binding.tappableTileLayout.setOnClickListener(self -> {
-            if (checkForPermission()) {
-                binding.tappableTileSwitch.toggle();
-            }
-            else {
-                AdbDialog.show(requireContext());
-            }
-        });
+        binding.tappableTileLayout.setOnClickListener(self -> binding.tappableTileSwitch.toggle());
 
         binding.tappableTileSwitch.setOnCheckedChangeListener((self, state) -> {
             if (checkIfPermissionIsDenied() && state) {
@@ -63,14 +56,7 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
             }
         });
 
-        binding.emulatePowerSaveTilePreferenceLayout.setOnClickListener(self -> {
-            if (checkForPermission()) {
-                binding.emulatePowerSaveTilePreferenceSwitch.toggle();
-            }
-            else {
-                AdbDialog.show(requireContext());
-            }
-        });
+        binding.emulatePowerSaveTilePreferenceLayout.setOnClickListener(self -> binding.emulatePowerSaveTilePreferenceSwitch.toggle());
 
         binding.emulatePowerSaveTilePreferenceSwitch.setOnCheckedChangeListener((self, state) -> {
             if (checkIfPermissionIsDenied() && state) {
