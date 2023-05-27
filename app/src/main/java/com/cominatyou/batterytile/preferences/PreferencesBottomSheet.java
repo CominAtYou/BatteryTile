@@ -72,6 +72,13 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
             }
         });
 
+        binding.infoInTitleLayout.setOnClickListener(self -> binding.infoInTitleSwitch.toggle());
+
+        binding.infoInTitleSwitch.setOnCheckedChangeListener((self, state) -> requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean("infoInTitle", state)
+                .apply());
+
         if (requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE).getBoolean("emulatePowerSaveTile", false)) {
             binding.emulatePowerSaveTilePreferenceSwitch.setChecked(true);
             forceTappableTile(true);
@@ -81,6 +88,10 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
         }
 
         showDialog = true;
+
+        if (requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE).getBoolean("infoInTitle", false)) {
+            binding.infoInTitleSwitch.setChecked(true);
+        }
 
         return binding.getRoot();
     }

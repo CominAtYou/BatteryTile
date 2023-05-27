@@ -17,6 +17,16 @@ public class QuickSettingsTileService extends TileService {
     private boolean isTappableTileEnabled = false;
     private boolean shouldEmulatePowerSaveTile = false;
 
+    private void setActiveLabelText(String text) {
+        if (getSharedPreferences("preferences", Context.MODE_PRIVATE).getBoolean("infoInTitle", false)) {
+            getQsTile().setLabel(text);
+            getQsTile().setSubtitle(getString(R.string.battery_tile_label));
+        }
+        else {
+            getQsTile().setSubtitle(text);
+        }
+    }
+
     private void setBatteryInfo(Intent intent) {
         final int batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         final int plugState = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
@@ -27,7 +37,7 @@ public class QuickSettingsTileService extends TileService {
         final boolean isFullyCharged = isPluggedIn && batteryState == BatteryManager.BATTERY_STATUS_FULL;
 
         if (isFullyCharged) {
-            getQsTile().setSubtitle(getString(R.string.fully_charged));
+            setActiveLabelText(getString(R.string.fully_charged));
             getQsTile().setState(Tile.STATE_ACTIVE);
         }
         else if (isCharging) {
@@ -37,11 +47,11 @@ public class QuickSettingsTileService extends TileService {
 
             // computeChargeTimeRemaining() returns 0 at times for some reason, so check for < 1, not -1
             if (remainingTime < 1) {
-                getQsTile().setSubtitle(getString(R.string.charging_no_time_estimate, batteryLevel));
+                setActiveLabelText(getString(R.string.charging_no_time_estimate, batteryLevel));
             }
             else if (remainingTime <= 60000) {
                 // case for when less than 1m is remaining - duration returns 0 minutes if less than 1m which is undesirable
-                getQsTile().setSubtitle(getString(R.string.charging_less_than_one_hour_left, batteryLevel, 1));
+                setActiveLabelText(getString(R.string.charging_less_than_one_hour_left, batteryLevel, 1));
             }
             else {
                 Duration duration = Duration.ofMillis(remainingTime);
@@ -49,16 +59,16 @@ public class QuickSettingsTileService extends TileService {
                 final long minutes = duration.minusHours(hours).toMinutes();
 
                 if (hours > 0) {
-                    getQsTile().setSubtitle(getString(R.string.charging_more_than_one_hour_left, batteryLevel, hours, minutes));
+                    setActiveLabelText(getString(R.string.charging_more_than_one_hour_left, batteryLevel, hours, minutes));
                 }
                 else {
-                    getQsTile().setSubtitle(getString(R.string.charging_less_than_one_hour_left, batteryLevel, minutes));
+                    setActiveLabelText(getString(R.string.charging_less_than_one_hour_left, batteryLevel, minutes));
                 }
             }
 
         }
         else {
-            getQsTile().setSubtitle(batteryLevel + "%");
+            setActiveLabelText(batteryLevel + "%");
             if (isTappableTileEnabled) getQsTile().setState(Tile.STATE_INACTIVE);
         }
 
@@ -102,6 +112,7 @@ public class QuickSettingsTileService extends TileService {
         final IntentFilter batteryChangedFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         final Intent batteryChangedIntent = registerReceiver(batteryStateReceiver, batteryChangedFilter);
 
+        assert batteryChangedIntent != null;
         final int status = batteryChangedIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
         final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
 
