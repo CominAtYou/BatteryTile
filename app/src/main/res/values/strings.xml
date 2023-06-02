@@ -25,5 +25,17 @@
     <string name="power_save_system_warning_description">Android doesn\'t natively support apps changing the state of Battery Saver, and as such, this feature is experimental as of now.\n\nThe workaround the app uses can cause the Android System to no longer be able to control the Battery Saver setting after tapping the tile, meaning that things like the system Battery Saver tile won\'t work.\n\nIf you encounter this, tapping this tile (the tile from this app) again to restore the Battery Saver setting to its previous state should fix it.</string>
     <string name="info_in_title_option_description">Turn this on if you only see \"Battery\" after adding the tile.</string>
     <string name="info_in_title_option_title">Show battery info in tile title</string>
-    <string name="info_in_title_option_description">Show info about the battery in the tile\'s title. Turn this on if you only see \"Battery\" after adding the tile to the quick settings panel.</string>
+    <string name="activity_customize_tile_title">Customize tile</string>
+    <string name="tile_state_always_on">Always on</string>
+    <string name="tile_state_on_when_charging">On when charging</string>
+    <string name="tile_state_always_off">Always off</string>
+    <string name="activity_customize_tile_state_title">Tile state</string>
+    <string name="bottom_sheet_tile_text_disambiguation_discharging_text_title">Discharging text</string>
+    <string name="bottom_sheet_tile_text_disambiguation_discharging_text_description">Set the text shown when your phone isn\'t charging</string>
+    <string name="bottom_sheet_tile_text_disambiguation_charging_text_title">Charging text</string>
+    <string name="bottom_sheet_tile_text_disambiguation_charging_text_description">Set the text shown when your phone is charging</string>
+    <string name="bottom_sheet_preferences_customize_title_title">Customize tile</string>
+    <string name="bottom_sheet_preferences_customize_title_description">Customize how the tile looks and behaves</string>
+    <string name="bottom_sheet_preferences_tile_text_title">Tile text</string>
+    <string name="bottom_sheet_preferences_tile_text_description">Customize the text shown on the tile</string>
 </resources>
