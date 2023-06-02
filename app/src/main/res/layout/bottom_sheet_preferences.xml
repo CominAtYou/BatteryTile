@@ -48,7 +48,6 @@
             android:layout_height="wrap_content"
             android:text="@string/emulate_power_save_tile_preference_description"
             android:textColor="?android:textColorSecondary"
-            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/emulate_power_save_tile_preference_title"
             app:layout_constraintTop_toBottomOf="@id/emulate_power_save_tile_preference_title" />
 
@@ -89,7 +88,6 @@
             android:id="@+id/tappable_tile_description"
             android:layout_width="250dp"
             android:layout_marginTop="1dp"
-            android:textSize="14sp"
             android:layout_height="wrap_content"
             android:text="@string/enable_tap_action_preference_description"
             android:textColor="?android:textColorSecondary"
@@ -132,7 +130,6 @@
             android:id="@+id/info_in_title_description"
             android:layout_width="250dp"
             android:layout_marginTop="1dp"
-            android:textSize="14sp"
             android:layout_height="wrap_content"
             android:text="@string/info_in_title_option_description"
             android:textColor="?android:textColorSecondary"
