@@ -113,7 +113,7 @@
         android:paddingVertical="16dp"
         android:clickable="true"
         android:background="?attr/selectableItemBackground"
-        android:id="@+id/info_in_title_layout">
+        android:id="@+id/info_in_title_preference_layout">
 
         <TextView
             android:layout_width="wrap_content"
@@ -122,19 +122,19 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textSize="20sp"
             android:layout_marginStart="24dp"
-            android:id="@+id/info_in_title_title"
+            android:id="@+id/info_in_title_preference_title"
             android:textColor="?android:textColorPrimary"
             android:text="@string/info_in_title_option_title" />
 
         <TextView
-            android:id="@+id/info_in_title_description"
+            android:id="@+id/info_in_title_preference_description"
             android:layout_width="250dp"
             android:layout_marginTop="1dp"
             android:layout_height="wrap_content"
             android:text="@string/info_in_title_option_description"
             android:textColor="?android:textColorSecondary"
-            app:layout_constraintStart_toStartOf="@+id/info_in_title_title"
-            app:layout_constraintTop_toBottomOf="@id/info_in_title_title" />
+            app:layout_constraintStart_toStartOf="@+id/info_in_title_preference_title"
+            app:layout_constraintTop_toBottomOf="@id/info_in_title_preference_title" />
 
         <com.google.android.material.materialswitch.MaterialSwitch
             android:layout_width="wrap_content"
