@@ -72,7 +72,7 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
             }
         });
 
-        binding.infoInTitleLayout.setOnClickListener(self -> binding.infoInTitleSwitch.toggle());
+        binding.infoInTitlePreferenceLayout.setOnClickListener(self -> binding.infoInTitleSwitch.toggle());
 
         binding.infoInTitleSwitch.setOnCheckedChangeListener((self, state) -> requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE)
                 .edit()
