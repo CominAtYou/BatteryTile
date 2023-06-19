@@ -2,6 +2,7 @@ package com.cominatyou.batterytile.preferences;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,11 +29,13 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
         binding.tappableTileDescription.setAlpha(force ? 0.4f : 1);
         binding.tappableTileLayout.setEnabled(!force);
     }
+
     private boolean checkIfPermissionIsDenied() {
         return requireContext().checkCallingOrSelfPermission(Manifest.permission.WRITE_SECURE_SETTINGS) != PackageManager.PERMISSION_GRANTED;
     }
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = BottomSheetPreferencesBinding.inflate(inflater, container, false);
+        final SharedPreferences preferences = requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
         binding.tappableTileLayout.setOnClickListener(self -> binding.tappableTileSwitch.toggle());
 
@@ -49,10 +52,12 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
                             .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
                             .show();
                 }
-                requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE)
+                preferences
                         .edit()
                         .putBoolean("tappableTileEnabled", state)
                         .apply();
+
+                setTileStatePreferenceEnabled(!state);
             }
         });
 
@@ -65,37 +70,65 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
             }
             else {
                 forceTappableTile(state);
-                requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE)
-                        .edit()
-                        .putBoolean("emulatePowerSaveTile", state)
-                        .apply();
+                preferences.edit().putBoolean("emulatePowerSaveTile", state).apply();
+                setTileStatePreferenceEnabled(!state);
             }
         });
 
         binding.infoInTitlePreferenceLayout.setOnClickListener(self -> binding.infoInTitleSwitch.toggle());
 
-        binding.infoInTitleSwitch.setOnCheckedChangeListener((self, state) -> requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE)
+        binding.infoInTitleSwitch.setOnCheckedChangeListener((self, state) -> preferences
                 .edit()
                 .putBoolean("infoInTitle", state)
-                .apply());
+                .apply()
+        );
 
-        if (requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE).getBoolean("emulatePowerSaveTile", false)) {
+        if (preferences.getBoolean("emulatePowerSaveTile", false)) {
             binding.emulatePowerSaveTilePreferenceSwitch.setChecked(true);
             forceTappableTile(true);
         }
-        else if (requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE).getBoolean("tappableTileEnabled", false)) {
+        else if (preferences.getBoolean("tappableTileEnabled", false)) {
             binding.tappableTileSwitch.setChecked(true);
         }
 
         showDialog = true;
 
-        if (requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE).getBoolean("infoInTitle", false)) {
+        if (preferences.getBoolean("infoInTitle", false)) {
             binding.infoInTitleSwitch.setChecked(true);
         }
+
+        binding.tileStateLayout.setOnClickListener(v -> TileStatePickerDialog.show(requireContext(), this::updateTileStateDescription));
+        updateTileStateDescription();
 
         return binding.getRoot();
     }
 
+    private void updateTileStateDescription() {
+        final SharedPreferences preferences = requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        if (preferences.getBoolean("emulatePowerSaveTile", false) || preferences.getBoolean("tappableTileEnabled", false)) {
+            binding.tileStateDescription.setText(R.string.bottom_sheet_preferences_tile_state_disabled_reason);
+            return;
+        }
+
+        switch (preferences.getInt("tileState", 0)) {
+            case 0:
+                binding.tileStateDescription.setText(R.string.tile_state_always_on);
+                break;
+            case 1:
+                binding.tileStateDescription.setText(R.string.tile_state_on_when_charging);
+                break;
+            case 2:
+                binding.tileStateDescription.setText(R.string.tile_state_always_off);
+                break;
+        }
+    }
+
+    private void setTileStatePreferenceEnabled(boolean enabled) {
+        binding.tileStateTitle.setAlpha(enabled ? 1 : 0.4f);
+        binding.tileStateDescription.setAlpha(enabled ? 1 : 0.4f);
+        binding.tileStateLayout.setEnabled(enabled);
+        updateTileStateDescription();
+    }
 
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);

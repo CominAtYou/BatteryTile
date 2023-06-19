@@ -38,10 +38,10 @@ public class QuickSettingsTileService extends TileService {
 
         if (isFullyCharged) {
             setActiveLabelText(getString(R.string.fully_charged));
-            getQsTile().setState(Tile.STATE_ACTIVE);
+            getQsTile().setState(getTileState(true));
         }
         else if (isCharging) {
-            getQsTile().setState(Tile.STATE_ACTIVE);
+            getQsTile().setState(getTileState(true));
 
             final long remainingTime = getSystemService(BatteryManager.class).computeChargeTimeRemaining();
 
@@ -69,7 +69,7 @@ public class QuickSettingsTileService extends TileService {
         }
         else {
             setActiveLabelText(batteryLevel + "%");
-            if (isTappableTileEnabled) getQsTile().setState(Tile.STATE_INACTIVE);
+            getQsTile().setState(getTileState(false));
         }
 
         getQsTile().updateTile();
@@ -135,8 +135,8 @@ public class QuickSettingsTileService extends TileService {
             getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_qs_battery));
             getQsTile().setLabel(getString(R.string.battery_tile_label));
 
-            if (!isTappableTileEnabled || isCharging) {
-                getQsTile().setState(Tile.STATE_ACTIVE);
+            if (!isTappableTileEnabled) {
+                getQsTile().setState(getTileState(isCharging));
             }
             else {
                 final IntentFilter powerSaveChangedFilter = new IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
@@ -145,6 +145,17 @@ public class QuickSettingsTileService extends TileService {
             }
 
             setBatteryInfo(batteryChangedIntent);
+        }
+    }
+
+    private int getTileState(boolean isCharging) {
+        switch (getSharedPreferences("preferences", MODE_PRIVATE).getInt("tileState", 0)) {
+            case 0:
+                return Tile.STATE_ACTIVE;
+            case 1:
+                return isCharging ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;
+            default:
+                return Tile.STATE_INACTIVE;
         }
     }
 

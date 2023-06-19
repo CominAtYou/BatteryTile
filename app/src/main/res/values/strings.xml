@@ -38,4 +38,9 @@
     <string name="bottom_sheet_preferences_customize_title_description">Customize how the tile looks and behaves</string>
     <string name="bottom_sheet_preferences_tile_text_title">Tile text</string>
     <string name="bottom_sheet_preferences_tile_text_description">Customize the text shown on the tile</string>
+    <string name="bottom_sheet_preferences_tile_state_disabled_reason">Unavailable with the settings you have enabled</string>
+    <string name="dialog_tile_state_picker_title">When should the tile be on?</string>
+    <string name="dialog_tile_state_picker_always_on">Always</string>
+    <string name="dialog_tile_state_picker_on_when_charging">When charging</string>
+    <string name="dialog_tile_state_picker_always_off">Never</string>
 </resources>
