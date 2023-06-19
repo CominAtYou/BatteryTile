@@ -43,4 +43,5 @@
     <string name="dialog_tile_state_picker_always_on">Always</string>
     <string name="dialog_tile_state_picker_on_when_charging">When charging</string>
     <string name="dialog_tile_state_picker_always_off">Never</string>
+    <string name="dialog_tile_text_disambiguation_title">What text should be changed?</string>
 </resources>
