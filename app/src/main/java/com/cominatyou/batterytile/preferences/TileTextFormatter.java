@@ -21,12 +21,12 @@ public class TileTextFormatter {
         assert batteryIntent != null;
 
         // CURRENT_NOW and CURRENT_AVERAGE are positive when charging and negative when discharging
-        formatters.put("c", bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW));
-        formatters.put("a", bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE));
+        formatters.put("c", bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000);
+        formatters.put("a", bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE) / 1000);
 
         // Temperature of the battery
-        formatters.put("t", batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)); // Celsius
-        formatters.put("f", (int) (batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) * 1.8 + 32)); // Fahrenheit
+        formatters.put("t", batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) / 10); // Celsius
+        formatters.put("f", (int) (batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) / 10 * 1.8 + 32)); // Fahrenheit
 
         // Voltage of the battery
         formatters.put("v", batteryIntent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0));
