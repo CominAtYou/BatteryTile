@@ -40,7 +40,7 @@ public class EditTileTextActivity extends AppCompatActivity {
 
         binding.topBar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.save_menu_item) {
-                getSharedPreferences("preferences", MODE_PRIVATE).edit().putString(preference_key, Objects.requireNonNull(binding.editTileTextEditText.getText()).toString()).apply();
+                getSharedPreferences("preferences", MODE_PRIVATE).edit().putString(preference_key, Objects.requireNonNull(binding.editTileTextEditText.getText()).toString().trim()).apply();
                 hasTextBeenChanged = false;
                 Snackbar.make(binding.getRoot(), R.string.activity_edit_tile_text_save_success, Snackbar.LENGTH_SHORT).show();
                 return true;
