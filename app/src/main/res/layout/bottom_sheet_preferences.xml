@@ -163,7 +163,7 @@
             android:id="@+id/tile_state_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/activity_customize_tile_state_title"
+            android:text="@string/dialog_customize_tile_state_title"
             android:textColor="?android:textColorPrimary"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"

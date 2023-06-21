@@ -43,6 +43,11 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".preferences.EditTileTextActivity"
+            android:exported="false"
+            android:screenOrientation="sensorPortrait"
+            tools:ignore="LockedOrientationActivity" />
+
     </application>
 
 
