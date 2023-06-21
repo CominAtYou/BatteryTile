@@ -1,8 +1,10 @@
 package com.cominatyou.batterytile.preferences;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.window.OnBackInvokedDispatcher;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +27,11 @@ public class EditTileTextActivity extends AppCompatActivity {
         final ActivityEditTileTextBinding binding = ActivityEditTileTextBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::warnForUnsavedChanges);
+        }
+
         final String preference_key = getIntent().getBooleanExtra("isEditingChargingText", false) ? "chargingText" : "dischargingText";
 
         binding.editTileTextEditText.setText(getSharedPreferences("preferences", MODE_PRIVATE).getString(preference_key, ""));
@@ -53,7 +60,12 @@ public class EditTileTextActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        warnForUnsavedChanges();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            warnForUnsavedChanges();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
     private void warnForUnsavedChanges() {
