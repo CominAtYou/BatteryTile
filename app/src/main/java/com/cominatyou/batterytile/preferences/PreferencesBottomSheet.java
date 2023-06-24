@@ -77,6 +77,13 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
                 binding.tileTextTitle.setAlpha(state ? 0.4f : 1);
                 binding.tileTextDescription.setAlpha(state ? 0.4f : 1);
                 binding.tileTextDescription.setText(getString(state ? R.string.bottom_sheet_preferences_tile_state_disabled_reason : R.string.bottom_sheet_preferences_tile_text_description));
+
+                binding.infoInTitlePreferenceLayout.setEnabled(!state);
+                binding.infoInTitlePreferenceTitle.setAlpha(state ? 0.4f : 1);
+                binding.infoInTitlePreferenceDescription.setAlpha(state ? 0.4f : 1);
+                binding.infoInTitlePreferenceDescription.setText(getString(state ? R.string.bottom_sheet_preferences_tile_state_disabled_reason : R.string.bottom_sheet_preferences_tile_text_description));
+                binding.infoInTitleSwitch.setChecked(false);
+                binding.infoInTitleSwitch.setEnabled(!state);
             }
         });
 
