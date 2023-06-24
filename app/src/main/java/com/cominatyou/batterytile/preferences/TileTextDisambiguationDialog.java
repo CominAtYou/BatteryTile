@@ -16,7 +16,7 @@ public class TileTextDisambiguationDialog {
         // You Can Customise your Title here
         title.setText(R.string.dialog_tile_text_disambiguation_title);
         title.setGravity(Gravity.CENTER);
-        title.setPadding(10, 60, 10, 10);
+        title.setPadding(60, 60, 60, 10);
         title.setTextSize(24);
 
         new MaterialAlertDialogBuilder(context)
