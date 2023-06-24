@@ -6,14 +6,12 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Class for user-configurable scanf-style formatting of tile text.
  */
 public class TileTextFormatter {
     private final HashMap<String, Integer> formatters = new HashMap<>();
-    private final List<String> formats = List.of("c", "a", "t", "f", "v", "l");
 
     public TileTextFormatter(Context context) {
         final BatteryManager bm = context.getSystemService(BatteryManager.class);
@@ -43,7 +41,7 @@ public class TileTextFormatter {
             if (format.charAt(i) == '%') {
                 if (i + 1 < format.length()) {
                     final String formatter = format.substring(i + 1, i + 2);
-                    if (formats.contains(formatter)) {
+                    if (formatters.containsKey(formatter)) {
                         formatted.append(formatters.get(formatter));
                         i++;
                     }
