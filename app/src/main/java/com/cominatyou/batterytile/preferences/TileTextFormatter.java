@@ -21,6 +21,7 @@ public class TileTextFormatter {
         assert batteryIntent != null;
 
         // CURRENT_NOW and CURRENT_AVERAGE are positive when charging and negative when discharging
+        // Android provides these as microamperes, so divide by 1000 to convert to mA
         formatters.put("c", bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000);
         formatters.put("a", bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE) / 1000);
 
@@ -28,8 +29,8 @@ public class TileTextFormatter {
         formatters.put("t", batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) / 10); // Celsius
         formatters.put("f", (int) (batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) / 10 * 1.8 + 32)); // Fahrenheit
 
-        // Voltage of the battery
-        formatters.put("v", batteryIntent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0));
+        // Voltage of the battery - provided as mV by Android, so divide by 1000 to get volts
+        formatters.put("v", batteryIntent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0) / 1000);
 
         // Battery level
         formatters.put("l", batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0));
