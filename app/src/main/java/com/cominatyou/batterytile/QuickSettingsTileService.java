@@ -118,6 +118,8 @@ public class QuickSettingsTileService extends TileService {
 
         if (shouldEmulatePowerSaveTile) {
             unregisterReceiver(batteryStateReceiver);
+            getQsTile().setLabel(getString(R.string.power_save_tile_label));
+            getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_battery_saver));
 
             if (isCharging) {
                 getQsTile().setState(Tile.STATE_UNAVAILABLE);
@@ -125,8 +127,6 @@ public class QuickSettingsTileService extends TileService {
                 getQsTile().updateTile();
             }
             else {
-                getQsTile().setLabel(getString(R.string.power_save_tile_label));
-                getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_battery_saver));
                 registerReceiver(powerSaveModeReceiver, new IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED));
                 setPowerSaveInfo();
             }
