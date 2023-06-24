@@ -32,7 +32,7 @@ public class EditTileTextActivity extends AppCompatActivity {
             getOnBackInvokedDispatcher().registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::warnForUnsavedChanges);
         }
 
-        final String preference_key = getIntent().getBooleanExtra("isEditingChargingText", false) ? "chargingText" : "dischargingText";
+        final String preference_key = getIntent().getBooleanExtra("isEditingChargingText", false) ? "charging_text" : "discharging_text";
 
         binding.editTileTextEditText.setText(getSharedPreferences("preferences", MODE_PRIVATE).getString(preference_key, ""));
 
