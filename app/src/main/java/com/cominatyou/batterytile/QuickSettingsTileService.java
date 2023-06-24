@@ -38,6 +38,27 @@ public class QuickSettingsTileService extends TileService {
         final boolean isCharging = batteryState == BatteryManager.BATTERY_STATUS_CHARGING;
         final boolean isFullyCharged = isPluggedIn && batteryState == BatteryManager.BATTERY_STATUS_FULL;
 
+        if (isPluggedIn && getSharedPreferences("preferences", MODE_PRIVATE).getBoolean("dynamic_tile_icon", false)) {
+            switch (plugState) {
+                case BatteryManager.BATTERY_PLUGGED_AC: {
+                    getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_power));
+                    break;
+                }
+                case BatteryManager.BATTERY_PLUGGED_USB: {
+                    getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_usb));
+                    break;
+                }
+                case BatteryManager.BATTERY_PLUGGED_WIRELESS: {
+                    getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_dock));
+                    break;
+                }
+                default: {
+                    getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_qs_battery));
+                    break;
+                }
+            }
+        }
+
         if (isFullyCharged) {
             final String customTileText = getSharedPreferences("preferences", MODE_PRIVATE).getString("charging_text", "");
             setActiveLabelText(customTileText.isEmpty() ? getString(R.string.fully_charged) : new TileTextFormatter(this).format(customTileText));
@@ -79,6 +100,7 @@ public class QuickSettingsTileService extends TileService {
             final String customTileText = getSharedPreferences("preferences", MODE_PRIVATE).getString("discharging_text", "");
             setActiveLabelText(customTileText.isEmpty() ? batteryLevel + "%" : new TileTextFormatter(this).format(customTileText));
             getQsTile().setState(getTileState(false));
+            getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_qs_battery));
         }
 
         getQsTile().updateTile();

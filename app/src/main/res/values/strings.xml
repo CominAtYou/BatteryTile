@@ -12,7 +12,7 @@
     <string name="emulate_power_save_tile_preference_title">Act as Battery Saver tile</string>
     <string name="emulate_power_save_tile_preference_description">The tile will only display the state of Battery Saver when this is on.</string>
     <string name="enable_tap_action_preference_title">Tap to toggle Battery Saver</string>
-    <string name="enable_tap_action_preference_description">Toggle Battery Saver by tapping on the tile.</string>
+    <string name="enable_tap_action_preference_description">Toggle Battery Saver by tapping on the tile</string>
     <string name="requires_adb_dialog_title">Hold up!</string>
     <string name="requires_adb_dialog_description">To enable this, you\'ll need to grant the app permission to do modify system settings. To do that, connect your phone to your computer with USB debugging enabled, and issue the following command via ADB:</string>
     <string name="requires_adb_dialog_description_second_half">Once you\'ve done that, you\'ll be able to enable this setting.</string>
@@ -55,4 +55,6 @@
     <string name="activity_edit_text_discard_dialog_negative_button">Discard</string>
     <string name="activity_edit_text_discard_dialog_positive_button">Keep editing</string>
     <string name="menu_edit_title_save_button">Save</string>
+    <string name="bottom_sheet_preferences_dynamic_tile_icon_title">Dynamic tile icon</string>
+    <string name="bottom_sheet_preferences_dynamic_tile_icon_description">Display the power source in the tile icon when charging</string>
 </resources>

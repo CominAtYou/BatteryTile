@@ -84,16 +84,21 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
                 binding.infoInTitlePreferenceDescription.setText(getString(state ? R.string.bottom_sheet_preferences_tile_state_disabled_reason : R.string.info_in_title_option_description));
                 binding.infoInTitleSwitch.setChecked(false);
                 binding.infoInTitleSwitch.setEnabled(!state);
+
+                binding.dynamicTileIconLayout.setEnabled(!state);
+                binding.dynamicTileIconTitle.setAlpha(state ? 0.4f : 1);
+                binding.dynamicTileIconDescription.setAlpha(state ? 0.4f : 1);
+                binding.dynamicTileIconDescription.setText(getString(state ? R.string.bottom_sheet_preferences_tile_state_disabled_reason : R.string.bottom_sheet_preferences_dynamic_tile_icon_description));
+                binding.dynamicTileIconSwitch.setChecked(false);
+                binding.dynamicTileIconSwitch.setEnabled(!state);
             }
         });
 
         binding.infoInTitlePreferenceLayout.setOnClickListener(self -> binding.infoInTitleSwitch.toggle());
+        binding.infoInTitleSwitch.setOnCheckedChangeListener((self, state) -> preferences.edit().putBoolean("infoInTitle", state).apply());
 
-        binding.infoInTitleSwitch.setOnCheckedChangeListener((self, state) -> preferences
-                .edit()
-                .putBoolean("infoInTitle", state)
-                .apply()
-        );
+        binding.dynamicTileIconLayout.setOnClickListener(self -> binding.dynamicTileIconSwitch.toggle());
+        binding.dynamicTileIconSwitch.setOnCheckedChangeListener((self, state) -> preferences.edit().putBoolean("dynamic_tile_icon", state).apply());
 
         if (preferences.getBoolean("emulatePowerSaveTile", false)) {
             binding.emulatePowerSaveTilePreferenceSwitch.setChecked(true);
@@ -101,6 +106,10 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
         }
         else if (preferences.getBoolean("tappableTileEnabled", false)) {
             binding.tappableTileSwitch.setChecked(true);
+        }
+
+        if (preferences.getBoolean("dynamic_tile_icon", false)) {
+            binding.dynamicTileIconSwitch.setChecked(true);
         }
 
         showDialog = true;
