@@ -72,6 +72,11 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
                 forceTappableTile(state);
                 preferences.edit().putBoolean("emulatePowerSaveTile", state).apply();
                 setTileStatePreferenceEnabled(!state);
+
+                binding.tileTextLayout.setEnabled(!state);
+                binding.tileTextTitle.setAlpha(state ? 0.4f : 1);
+                binding.tileTextDescription.setAlpha(state ? 0.4f : 1);
+                binding.tileTextDescription.setText(getString(state ? R.string.bottom_sheet_preferences_tile_state_disabled_reason : R.string.bottom_sheet_preferences_tile_text_description));
             }
         });
 
