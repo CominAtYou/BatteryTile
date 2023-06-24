@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.Toast;
 import android.window.OnBackInvokedDispatcher;
 
 import androidx.annotation.Nullable;
@@ -14,7 +15,6 @@ import com.cominatyou.batterytile.R;
 import com.cominatyou.batterytile.databinding.ActivityEditTileTextBinding;
 import com.google.android.material.color.DynamicColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
@@ -49,7 +49,7 @@ public class EditTileTextActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.save_menu_item) {
                 getSharedPreferences("preferences", MODE_PRIVATE).edit().putString(preference_key, Objects.requireNonNull(binding.editTileTextEditText.getText()).toString().trim()).apply();
                 hasTextBeenChanged = false;
-                Snackbar.make(binding.getRoot(), R.string.activity_edit_tile_text_save_success, Snackbar.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.activity_edit_tile_text_save_success, Toast.LENGTH_LONG).show();
                 return true;
             }
             return false;
