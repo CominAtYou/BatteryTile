@@ -11,6 +11,8 @@ import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
+import com.cominatyou.batterytile.preferences.TileTextFormatter;
+
 import java.time.Duration;
 
 public class QuickSettingsTileService extends TileService {
@@ -37,38 +39,45 @@ public class QuickSettingsTileService extends TileService {
         final boolean isFullyCharged = isPluggedIn && batteryState == BatteryManager.BATTERY_STATUS_FULL;
 
         if (isFullyCharged) {
-            setActiveLabelText(getString(R.string.fully_charged));
+            final String customTileText = getSharedPreferences("preferences", MODE_PRIVATE).getString("charging_text", "");
+            setActiveLabelText(customTileText.isEmpty() ? getString(R.string.fully_charged) : new TileTextFormatter(this).format(customTileText));
             getQsTile().setState(getTileState(true));
         }
         else if (isCharging) {
+            final String customTileText = getSharedPreferences("preferences", MODE_PRIVATE).getString("charging_text", "");
             getQsTile().setState(getTileState(true));
 
-            final long remainingTime = getSystemService(BatteryManager.class).computeChargeTimeRemaining();
-
-            // computeChargeTimeRemaining() returns 0 at times for some reason, so check for < 1, not -1
-            if (remainingTime < 1) {
-                setActiveLabelText(getString(R.string.charging_no_time_estimate, batteryLevel));
-            }
-            else if (remainingTime <= 60000) {
-                // case for when less than 1m is remaining - duration returns 0 minutes if less than 1m which is undesirable
-                setActiveLabelText(getString(R.string.charging_less_than_one_hour_left, batteryLevel, 1));
+            if (!customTileText.isEmpty()) {
+                setActiveLabelText(new TileTextFormatter(this).format(customTileText));
             }
             else {
-                Duration duration = Duration.ofMillis(remainingTime);
-                final long hours = duration.toHours();
-                final long minutes = duration.minusHours(hours).toMinutes();
+                final long remainingTime = getSystemService(BatteryManager.class).computeChargeTimeRemaining();
 
-                if (hours > 0) {
-                    setActiveLabelText(getString(R.string.charging_more_than_one_hour_left, batteryLevel, hours, minutes));
+                // computeChargeTimeRemaining() returns 0 at times for some reason, so check for < 1, not -1
+                if (remainingTime < 1) {
+                    setActiveLabelText(getString(R.string.charging_no_time_estimate, batteryLevel));
+                }
+                else if (remainingTime <= 60000) {
+                    // case for when less than 1m is remaining - duration returns 0 minutes if less than 1m which is undesirable
+                    setActiveLabelText(getString(R.string.charging_less_than_one_hour_left, batteryLevel, 1));
                 }
                 else {
-                    setActiveLabelText(getString(R.string.charging_less_than_one_hour_left, batteryLevel, minutes));
+                    Duration duration = Duration.ofMillis(remainingTime);
+                    final long hours = duration.toHours();
+                    final long minutes = duration.minusHours(hours).toMinutes();
+
+                    if (hours > 0) {
+                        setActiveLabelText(getString(R.string.charging_more_than_one_hour_left, batteryLevel, hours, minutes));
+                    }
+                    else {
+                        setActiveLabelText(getString(R.string.charging_less_than_one_hour_left, batteryLevel, minutes));
+                    }
                 }
             }
-
         }
         else {
-            setActiveLabelText(batteryLevel + "%");
+            final String customTileText = getSharedPreferences("preferences", MODE_PRIVATE).getString("discharging_text", "");
+            setActiveLabelText(customTileText.isEmpty() ? batteryLevel + "%" : new TileTextFormatter(this).format(customTileText));
             getQsTile().setState(getTileState(false));
         }
 
