@@ -18,6 +18,7 @@ import java.time.Duration;
 public class QuickSettingsTileService extends TileService {
     private boolean isTappableTileEnabled = false;
     private boolean shouldEmulatePowerSaveTile = false;
+    private boolean isCharging = false;
 
     private void setActiveLabelText(String text) {
         if (getSharedPreferences("preferences", Context.MODE_PRIVATE).getBoolean("infoInTitle", false)) {
@@ -35,8 +36,12 @@ public class QuickSettingsTileService extends TileService {
         final int batteryState = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
 
         final boolean isPluggedIn = plugState == BatteryManager.BATTERY_PLUGGED_AC || plugState == BatteryManager.BATTERY_PLUGGED_USB || plugState == BatteryManager.BATTERY_PLUGGED_WIRELESS;
-        final boolean isCharging = batteryState == BatteryManager.BATTERY_STATUS_CHARGING;
         final boolean isFullyCharged = isPluggedIn && batteryState == BatteryManager.BATTERY_STATUS_FULL;
+        isCharging = batteryState == BatteryManager.BATTERY_STATUS_CHARGING;
+
+        if (isTappableTileEnabled) {
+            getQsTile().setState(isCharging ? Tile.STATE_INACTIVE : (getSystemService(PowerManager.class).isPowerSaveMode() ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE));
+        }
 
         if (isPluggedIn && getSharedPreferences("preferences", MODE_PRIVATE).getBoolean("dynamic_tile_icon", false)) {
             switch (plugState) {
@@ -62,11 +67,11 @@ public class QuickSettingsTileService extends TileService {
         if (isFullyCharged) {
             final String customTileText = getSharedPreferences("preferences", MODE_PRIVATE).getString("charging_text", "");
             setActiveLabelText(customTileText.isEmpty() ? getString(R.string.fully_charged) : new TileTextFormatter(this).format(customTileText));
-            getQsTile().setState(getTileState(true));
+            if (!isTappableTileEnabled) getQsTile().setState(getTileState(true));
         }
         else if (isCharging) {
             final String customTileText = getSharedPreferences("preferences", MODE_PRIVATE).getString("charging_text", "");
-            getQsTile().setState(getTileState(true));
+            if (!isTappableTileEnabled) getQsTile().setState(getTileState(true));
 
             if (!customTileText.isEmpty()) {
                 setActiveLabelText(new TileTextFormatter(this).format(customTileText));
@@ -99,7 +104,7 @@ public class QuickSettingsTileService extends TileService {
         else {
             final String customTileText = getSharedPreferences("preferences", MODE_PRIVATE).getString("discharging_text", "");
             setActiveLabelText(customTileText.isEmpty() ? batteryLevel + "%" : new TileTextFormatter(this).format(customTileText));
-            getQsTile().setState(getTileState(false));
+            if (!isTappableTileEnabled) getQsTile().setState(getTileState(false));
             getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_qs_battery));
         }
 
@@ -140,17 +145,14 @@ public class QuickSettingsTileService extends TileService {
         shouldEmulatePowerSaveTile = getSharedPreferences("preferences", MODE_PRIVATE).getBoolean("emulatePowerSaveTile", false);
         isTappableTileEnabled = getSharedPreferences("preferences", MODE_PRIVATE).getBoolean("tappableTileEnabled", false);
 
-        final IntentFilter batteryChangedFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        final Intent batteryChangedIntent = registerReceiver(batteryStateReceiver, batteryChangedFilter);
+        final Intent batteryChangedIntent = registerReceiver(batteryStateReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         assert batteryChangedIntent != null;
         final int status = batteryChangedIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-        final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
+        isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
 
         if (shouldEmulatePowerSaveTile) {
             unregisterReceiver(batteryStateReceiver);
-            getQsTile().setLabel(getString(R.string.power_save_tile_label));
-            getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_battery_saver));
 
             if (isCharging) {
                 getQsTile().setState(Tile.STATE_UNAVAILABLE);
@@ -193,7 +195,7 @@ public class QuickSettingsTileService extends TileService {
     @Override
     public void onClick() {
         super.onClick();
-        if (!isTappableTileEnabled) return;
+        if (!isTappableTileEnabled || isCharging) return;
 
         final boolean isInPowerSaveMode = getSystemService(PowerManager.class).isPowerSaveMode();
 
