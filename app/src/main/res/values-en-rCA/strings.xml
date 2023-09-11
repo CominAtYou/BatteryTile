@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Battery Tile</string>
+    <string name="dialog_customize_tile_title">Customize Tile</string>
+    <string name="bottom_sheet_preferences_customize_title_title">Customize tile</string>
+    <string name="bottom_sheet_preferences_customize_title_description">Customize how the tile looks and behaves</string>
+    <string name="bottom_sheet_preferences_tile_text_description">Customize the text shown on the tile</string>
+    <string name="activity_edit_tile_text_info_text">Customize the text displayed on the tile. The following variables can be used to display info about the battery on the tile:\n\n• %%c: Current of the battery in milliamperes\n• %%a: Average current of the battery in milliamperes\n• %%t: Temperature of the battery in Celsius\n• %%f: Temperature of the battery in Fahrenheit\n• %%v: Voltage of the battery\n• %%l: Current battery percentage\n\nSo, for example, setting the text to \"Battery: %%l%%\" would result in the tile displaying \"Battery: 69%%\".\n\nLeaving this field blank will result in the tile displaying %1$s</string>
+</resources>
