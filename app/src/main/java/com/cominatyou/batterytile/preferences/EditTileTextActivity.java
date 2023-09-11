@@ -53,6 +53,7 @@ public class EditTileTextActivity extends AppCompatActivity {
                 getSharedPreferences("preferences", MODE_PRIVATE).edit().putString(preference_key, Objects.requireNonNull(binding.editTileTextEditText.getText()).toString().trim()).apply();
                 hasTextBeenChanged = false;
                 Toast.makeText(this, R.string.activity_edit_tile_text_save_success, Toast.LENGTH_LONG).show();
+                finish();
                 return true;
             }
             return false;
