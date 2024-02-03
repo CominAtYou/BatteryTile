@@ -108,7 +108,7 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
             binding.tappableTileSwitch.setChecked(preferences.getBoolean("tappableTileEnabled", false));
         }
 
-        binding.dynamicTileIconSwitch.setChecked(preferences.getBoolean("dynamic_tile_icon", false));
+        binding.dynamicTileIconSwitch.setChecked(preferences.getBoolean("dynamic_tile_icon", true));
 
         showDialog = true;
 

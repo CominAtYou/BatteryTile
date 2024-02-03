@@ -43,7 +43,7 @@ public class QuickSettingsTileService extends TileService {
             getQsTile().setState(isCharging ? Tile.STATE_INACTIVE : (getSystemService(PowerManager.class).isPowerSaveMode() ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE));
         }
 
-        if (isPluggedIn && getSharedPreferences("preferences", MODE_PRIVATE).getBoolean("dynamic_tile_icon", false)) {
+        if (isPluggedIn && getSharedPreferences("preferences", MODE_PRIVATE).getBoolean("dynamic_tile_icon", true)) {
             switch (plugState) {
                 case BatteryManager.BATTERY_PLUGGED_AC -> {
                     getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_power));
