@@ -45,21 +45,17 @@ public class QuickSettingsTileService extends TileService {
 
         if (isPluggedIn && getSharedPreferences("preferences", MODE_PRIVATE).getBoolean("dynamic_tile_icon", false)) {
             switch (plugState) {
-                case BatteryManager.BATTERY_PLUGGED_AC: {
+                case BatteryManager.BATTERY_PLUGGED_AC -> {
                     getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_power));
-                    break;
                 }
-                case BatteryManager.BATTERY_PLUGGED_USB: {
+                case BatteryManager.BATTERY_PLUGGED_USB -> {
                     getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_usb));
-                    break;
                 }
-                case BatteryManager.BATTERY_PLUGGED_WIRELESS: {
+                case BatteryManager.BATTERY_PLUGGED_WIRELESS -> {
                     getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_dock));
-                    break;
                 }
-                default: {
+                default -> {
                     getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_qs_battery));
-                    break;
                 }
             }
         }
@@ -182,14 +178,11 @@ public class QuickSettingsTileService extends TileService {
     }
 
     private int getTileState(boolean isCharging) {
-        switch (getSharedPreferences("preferences", MODE_PRIVATE).getInt("tileState", 0)) {
-            case 0:
-                return Tile.STATE_ACTIVE;
-            case 1:
-                return isCharging ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;
-            default:
-                return Tile.STATE_INACTIVE;
-        }
+        return switch (getSharedPreferences("preferences", MODE_PRIVATE).getInt("tileState", 0)) {
+            case 0 -> Tile.STATE_ACTIVE;
+            case 1 -> isCharging ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;
+            default -> Tile.STATE_INACTIVE;
+        };
     }
 
     @Override

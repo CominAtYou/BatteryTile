@@ -104,19 +104,15 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
             binding.emulatePowerSaveTilePreferenceSwitch.setChecked(true);
             forceTappableTile(true);
         }
-        else if (preferences.getBoolean("tappableTileEnabled", false)) {
-            binding.tappableTileSwitch.setChecked(true);
+        else {
+            binding.tappableTileSwitch.setChecked(preferences.getBoolean("tappableTileEnabled", false));
         }
 
-        if (preferences.getBoolean("dynamic_tile_icon", false)) {
-            binding.dynamicTileIconSwitch.setChecked(true);
-        }
+        binding.dynamicTileIconSwitch.setChecked(preferences.getBoolean("dynamic_tile_icon", false));
 
         showDialog = true;
 
-        if (preferences.getBoolean("infoInTitle", false)) {
-            binding.infoInTitleSwitch.setChecked(true);
-        }
+        binding.infoInTitleSwitch.setChecked(preferences.getBoolean("infoInTitle", false));
 
         binding.tileStateLayout.setOnClickListener(v -> TileStatePickerDialog.show(requireContext(), this::updateTileStateDescription));
         updateTileStateDescription();
@@ -134,15 +130,9 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
         }
 
         switch (preferences.getInt("tileState", 0)) {
-            case 0:
-                binding.tileStateDescription.setText(R.string.tile_state_always_on);
-                break;
-            case 1:
-                binding.tileStateDescription.setText(R.string.tile_state_on_when_charging);
-                break;
-            case 2:
-                binding.tileStateDescription.setText(R.string.tile_state_always_off);
-                break;
+            case 0 -> binding.tileStateDescription.setText(R.string.tile_state_always_on);
+            case 1 -> binding.tileStateDescription.setText(R.string.tile_state_on_when_charging);
+            case 2 -> binding.tileStateDescription.setText(R.string.tile_state_always_off);
         }
     }
 
