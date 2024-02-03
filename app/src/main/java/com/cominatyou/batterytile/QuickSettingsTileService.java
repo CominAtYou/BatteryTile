@@ -45,18 +45,10 @@ public class QuickSettingsTileService extends TileService {
 
         if (isPluggedIn && getSharedPreferences("preferences", MODE_PRIVATE).getBoolean("dynamic_tile_icon", true)) {
             switch (plugState) {
-                case BatteryManager.BATTERY_PLUGGED_AC -> {
-                    getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_power));
-                }
-                case BatteryManager.BATTERY_PLUGGED_USB -> {
-                    getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_usb));
-                }
-                case BatteryManager.BATTERY_PLUGGED_WIRELESS -> {
-                    getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_dock));
-                }
-                default -> {
-                    getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_qs_battery));
-                }
+                case BatteryManager.BATTERY_PLUGGED_AC -> getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_power));
+                case BatteryManager.BATTERY_PLUGGED_USB -> getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_usb));
+                case BatteryManager.BATTERY_PLUGGED_WIRELESS -> getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_dock));
+                default -> getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_qs_battery));
             }
         }
 
@@ -149,6 +141,9 @@ public class QuickSettingsTileService extends TileService {
 
         if (shouldEmulatePowerSaveTile) {
             unregisterReceiver(batteryStateReceiver);
+            registerReceiver(powerSaveModeReceiver, new IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED));
+            getQsTile().setLabel(getString(R.string.power_save_tile_label));
+            getQsTile().setIcon(Icon.createWithResource(this, R.drawable.ic_battery_saver));
 
             if (isCharging) {
                 getQsTile().setState(Tile.STATE_UNAVAILABLE);
@@ -156,7 +151,6 @@ public class QuickSettingsTileService extends TileService {
                 getQsTile().updateTile();
             }
             else {
-                registerReceiver(powerSaveModeReceiver, new IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED));
                 setPowerSaveInfo();
             }
         }
