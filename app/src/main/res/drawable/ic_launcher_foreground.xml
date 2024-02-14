@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
     Copyright (C) 2019 The Android Open Source Project
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,20 +11,12 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
-    android:viewportHeight="108"
-    android:tint="?android:attr/colorControlNormal"
-    android:autoMirrored="true">
-  <group android:scaleX="1.98"
-      android:scaleY="1.98"
-      android:translateX="30.24"
-      android:translateY="30.24">
-      <path
-          android:fillColor="#FFF"
-          android:pathData="M16.67,4H14.5V2h-5v2H7.33C6.6,4 6,4.6 6,5.33V15v5.67C6,21.4 6.6,22 7.33,22h9.33C17.4,22 18,21.4 18,20.67V15V5.33C18,4.6 17.4,4 16.67,4zM16,15v5H8v-5V6h8V15z"/>
-  </group>
+    android:viewportHeight="108">
+    <path
+        android:fillColor="@color/launcher_foreground"
+        android:pathData="M63.3,38H59v-4H49v4h-4.3c-1.5,0-2.7,1.2-2.7,2.7V60v11.3c0,1.5,1.2,2.7,2.7,2.7h18.7c1.5,0,2.7-1.2,2.7-2.7V60 V40.7C66,39.2,64.8,38,63.3,38z M62,60v10H46V60V42h16V60z" />
 </vector>

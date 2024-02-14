@@ -59,4 +59,8 @@
     <color name="md_theme_dark_shadow">#000000</color>
     <color name="md_theme_dark_surfaceTint">#AFC6FF</color>
     <color name="md_theme_dark_surfaceTintColor">#AFC6FF</color>
+    <!-- Icon -->
+    <color name="launcher_background_1">#FF1BA300</color>
+    <color name="launcher_background_2">#FF137100</color>
+    <color name="launcher_foreground">#FFF</color>
 </resources>
