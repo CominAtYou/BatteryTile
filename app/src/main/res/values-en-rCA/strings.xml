@@ -58,4 +58,6 @@
     <string name="menu_edit_title_save_button">Save</string>
     <string name="bottom_sheet_preferences_dynamic_tile_icon_title">Dynamic tile icon</string>
     <string name="bottom_sheet_preferences_dynamic_tile_icon_description">Display the power source in the tile icon when charging</string>
+    <string name="requires_adb_dialog_copy_success">ADB command copied!</string>
+    <string name="requires_adb_dialog_copy_button">Copy ADB command</string>
 </resources>

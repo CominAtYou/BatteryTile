@@ -18,7 +18,7 @@
         tools:targetApi="tiramisu">
 
         <service android:name=".QuickSettingsTileService"
-            android:label="Battery"
+            android:label="@string/battery_tile_label"
             android:icon="@drawable/ic_qs_battery"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
             android:exported="true">
