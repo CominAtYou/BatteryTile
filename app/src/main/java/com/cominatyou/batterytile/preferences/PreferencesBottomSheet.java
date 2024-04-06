@@ -91,6 +91,14 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
                 binding.dynamicTileIconDescription.setText(getString(state ? R.string.bottom_sheet_preferences_tile_state_disabled_reason : R.string.bottom_sheet_preferences_dynamic_tile_icon_description));
                 binding.dynamicTileIconSwitch.setChecked(false);
                 binding.dynamicTileIconSwitch.setEnabled(!state);
+
+                binding.liveTileUpdatesLayout.setEnabled(!state);
+                binding.liveTileUpdatesTitle.setAlpha(state ? 0.4f : 1);
+                binding.liveTileUpdatesDescription.setAlpha(state ? 0.4f : 1);
+                binding.liveTileUpdatesDescription.setText(getString(state ? R.string.bottom_sheet_preferences_tile_state_disabled_reason : R.string.live_tile_updates_description));
+                binding.liveTileUpdatesSwitch.setChecked(false);
+                binding.liveTileUpdatesSwitch.setEnabled(!state);
+
             }
         });
 
@@ -99,6 +107,9 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
 
         binding.dynamicTileIconLayout.setOnClickListener(self -> binding.dynamicTileIconSwitch.toggle());
         binding.dynamicTileIconSwitch.setOnCheckedChangeListener((self, state) -> preferences.edit().putBoolean("dynamic_tile_icon", state).apply());
+
+        binding.liveTileUpdatesLayout.setOnClickListener(self -> binding.liveTileUpdatesSwitch.toggle());
+        binding.liveTileUpdatesSwitch.setOnCheckedChangeListener((self, state) -> preferences.edit().putBoolean("live_tile_updates", state).apply());
 
         if (preferences.getBoolean("emulatePowerSaveTile", false)) {
             binding.emulatePowerSaveTilePreferenceSwitch.setChecked(true);
@@ -109,6 +120,8 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
         }
 
         binding.dynamicTileIconSwitch.setChecked(preferences.getBoolean("dynamic_tile_icon", true));
+
+        binding.liveTileUpdatesSwitch.setChecked(preferences.getBoolean("live_tile_updates", true));
 
         showDialog = true;
 

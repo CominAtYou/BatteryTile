@@ -14,11 +14,15 @@ import android.service.quicksettings.TileService;
 import com.cominatyou.batterytile.preferences.TileTextFormatter;
 
 import java.time.Duration;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class QuickSettingsTileService extends TileService {
     private boolean isTappableTileEnabled = false;
     private boolean shouldEmulatePowerSaveTile = false;
     private boolean isCharging = false;
+    private boolean hasTimerBeenScheduled = false;
+    private final Timer updateTask = new Timer();
 
     private void setActiveLabelText(String text) {
         if (getSharedPreferences("preferences", Context.MODE_PRIVATE).getBoolean("infoInTitle", false)) {
@@ -169,6 +173,19 @@ public class QuickSettingsTileService extends TileService {
 
             setBatteryInfo(batteryChangedIntent);
         }
+
+        if (!hasTimerBeenScheduled && !shouldEmulatePowerSaveTile) {
+            updateTask.schedule(new TimerTask() {
+                public void run() {
+                    final Intent batteryStateIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+                    assert batteryStateIntent != null;
+
+                    setBatteryInfo(batteryStateIntent);
+                }
+            }, 2000, 2000);
+
+            hasTimerBeenScheduled = true;
+        }
     }
 
     private int getTileState(boolean isCharging) {
@@ -197,6 +214,9 @@ public class QuickSettingsTileService extends TileService {
             unregisterReceiver(powerSaveModeReceiver);
         }
         if (!shouldEmulatePowerSaveTile) {
+            updateTask.cancel();
+            updateTask.purge();
+
             unregisterReceiver(batteryStateReceiver);
         }
     }
