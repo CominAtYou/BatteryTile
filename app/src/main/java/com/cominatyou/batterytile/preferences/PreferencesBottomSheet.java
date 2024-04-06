@@ -121,7 +121,7 @@ public class PreferencesBottomSheet extends BottomSheetDialogFragment {
 
         binding.dynamicTileIconSwitch.setChecked(preferences.getBoolean("dynamic_tile_icon", true));
 
-        binding.liveTileUpdatesSwitch.setChecked(preferences.getBoolean("live_tile_updates", true));
+        binding.liveTileUpdatesSwitch.setChecked(preferences.getBoolean("live_tile_updates", false));
 
         showDialog = true;
 
