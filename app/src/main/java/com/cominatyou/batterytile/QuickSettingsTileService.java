@@ -174,7 +174,7 @@ public class QuickSettingsTileService extends TileService {
             setBatteryInfo(batteryChangedIntent);
         }
 
-        if (!hasTimerBeenScheduled && !shouldEmulatePowerSaveTile) {
+        if (!hasTimerBeenScheduled && getSharedPreferences("preferences", MODE_PRIVATE).getBoolean("live_tile_updates", false)) {
             updateTask.schedule(new TimerTask() {
                 public void run() {
                     final Intent batteryStateIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
