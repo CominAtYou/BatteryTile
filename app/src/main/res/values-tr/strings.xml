@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [
+<!ENTITY bull "•">
+]>
+
+<resources>
+    <string name="app_name">Battery Tile</string>
+    <string name="fully_charged">100% • Şarj edildi</string>
+    <string name="charging_no_time_estimate">Şarj ediliyor • %1$d%%</string>
+    <string name="charging_more_than_one_hour_left">%1$d%% • %2$dh %3$dm tamamen dolana kadar</string>
+    <string name="charging_less_than_one_hour_left">%1$d%% • %2$dm tamamen dolana kadar</string>
+    <string name="preferences_bottom_sheet_title">Ayarlar</string>
+    <string name="emulate_power_save_tile_preference_title">Pil Tasarrufu kutusu olarak işlev görür</string>
+    <string name="emulate_power_save_tile_preference_description">Kutucuk yalnızca bu özellik açık olduğunda Pil Tasarrufu durumunu gösterecektir.</string>
+    <string name="enable_tap_action_preference_title">Pil Tasarrufunu açmak için dokun</string>
+    <string name="enable_tap_action_preference_description">Kutucuğa dokunarak Pil Tasarrufunu aç</string>
+    <string name="requires_adb_dialog_title">Bekle!</string>
+    <string name="requires_adb_dialog_description">Bunu etkinleştirmek için, uygulamaya sistem ayarlarını değiştirme izni vermeniz gerekir. Bunu yapmak için, telefonunuzu USB hata ayıklama etkin olarak bilgisayarınıza bağlayın ve ADB aracılığıyla aşağıdaki komutu verin:</string>
+    <string name="requires_adb_dialog_description_second_half">Bunu yaptıktan sonra, bu ayarı etkinleştirebileceksiniz.</string>
+    <string name="battery_tile_label">Pil</string>
+    <string name="power_save_tile_label">Pil Tasarrufu</string>
+    <string name="power_saver_tile_on_subtitle">Açık</string>
+    <string name="power_saver_tile_off_subtitle">Kapalı</string>
+    <string name="power_save_tile_unavailable_subtitle">Kullanılamıyor</string>
+    <string name="power_save_tile_warning_title">Bekle! Bu çok önemli.</string>
+    <string name="power_save_system_warning_description">Android, uygulamaların Pil Tasarrufu durumunu değiştirmesini yerel olarak desteklemez ve bu nedenle bu özellik şu an için deneyseldir.\n\nUygulamanın kullandığı geçici çözüm, Android Sisteminin kutucuğa dokunduktan sonra Pil Tasarrufu ayarını artık kontrol edememesine neden olabilir, bu da sistem Pil Tasarrufu kutucuğu gibi şeylerin çalışmayacağı anlamına gelir.\n\nBu durumla karşılaşırsanız, Pil Tasarrufu ayarını önceki durumuna geri yüklemek için bu kutucuğa (bu uygulamadaki kutucuğa) tekrar dokunmanız sorunu çözecektir.</string>
+    <string name="info_in_title_option_description">Kutucuğu ekledikten sonra yalnızca \"Pil\" görüyorsanız bunu açın.</string>
+    <string name="info_in_title_option_title">Kutucuk başlığında pil bilgisini göster</string>
+    <string name="dialog_customize_tile_title">Kutucuğu özelleştir</string>
+    <string name="tile_state_always_on">Daima açık</string>
+    <string name="tile_state_on_when_charging">Şarj olurken açık</string>
+    <string name="tile_state_always_off">Daima kapalı</string>
+    <string name="dialog_customize_tile_state_title">Kutucuk durumu</string>
+    <string name="bottom_sheet_tile_text_disambiguation_discharging_text_title">Boşaltma metni</string>
+    <string name="bottom_sheet_tile_text_disambiguation_discharging_text_description">Telefonunuz şarj olmadığında gösterilen metni ayarla</string>
+    <string name="bottom_sheet_tile_text_disambiguation_charging_text_title">Şarj etme metni</string>
+    <string name="bottom_sheet_tile_text_disambiguation_charging_text_description">Telefonunuz şarj olurken gösterilen metni ayarla</string>
+    <string name="bottom_sheet_preferences_customize_title_title">Kutucuğu özelleştir</string>
+    <string name="bottom_sheet_preferences_customize_title_description">Kutucuğun nasıl görüneceğini ve davranacağını özelleştir</string>
+    <string name="bottom_sheet_preferences_tile_text_title">Kutucuk metni</string>
+    <string name="bottom_sheet_preferences_tile_text_description">Kutucukta gösterilen metni özelleştir</string>
+    <string name="bottom_sheet_preferences_tile_state_disabled_reason">Etkinleştirdiğiniz ayarlarla kullanılamıyor</string>
+    <string name="dialog_tile_state_picker_title">Kutucuk ne zaman açılmalı?</string>
+    <string name="dialog_tile_state_picker_always_on">Daima</string>
+    <string name="dialog_tile_state_picker_on_when_charging">Şarj olurken</string>
+    <string name="dialog_tile_state_picker_always_off">Asla</string>
+    <string name="dialog_tile_text_disambiguation_title">Hangi metnin değiştirilmesi gerekiyor?</string>
+    <string name="activity_edit_tile_text_title">Kutucuk metnini özelleştir</string>
+    <string name="activity_edit_tile_text_text_input_hint">Kutucuk metni</string>
+    <string name="activity_edit_tile_text_info_text">Kutucukta görüntülenen metni özelleştir. Kutucukta pil hakkında bilgi görüntülemek için aşağıdaki değişkenler kullanılabilir:\n\n- %%c: Miliamper cinsinden pilin akımı\n- %%a: Miliamper cinsinden pilin ortalama akımı\n- %%t: Celsius cinsinden pilin sıcaklığı\n- %%f: Pilin Fahrenheit cinsinden sıcaklığı\n- %%v: Pilin voltajı\n- %%l: Geçerli pil yüzdesi\n\nÖrneğin, metni \"Pil: %%l%%\" olarak ayarlamak kutucuğun \"Pil: %69\" olarak görüntülenmesine neden olur.\n\nBu alanı boş bırakmak kutucuğun %1$s olarak görüntülenmesine neden olur.</string>
+    <string name="activity_edit_tile_text_info_text_default_charging">pil yüzdesi ve şarj süresi tahmini.</string>
+    <string name="activity_edit_tile_text_info_text_default_discharging">pil yüzdesi</string>
+    <string name="activity_edit_tile_text_save_success">Metin kaydedildi!</string>
+    <string name="activity_edit_text_discard_dialog_title">Değişiklikleri iptal et?</string>
+    <string name="activity_edit_text_discard_dialog_description">Kaydedilmemiş değişiklikleriniz var. Bunları iptal etmek istediğinizden emin misiniz?</string>
+    <string name="activity_edit_text_discard_dialog_negative_button">İptal et</string>
+    <string name="activity_edit_text_discard_dialog_positive_button">Düzenlemeye devam et</string>
+    <string name="menu_edit_title_save_button">Kaydet</string>
+    <string name="bottom_sheet_preferences_dynamic_tile_icon_title">Dinamik kutucuk simgesi</string>
+    <string name="bottom_sheet_preferences_dynamic_tile_icon_description">Şarj ederken kutucuk simgesinde güç kaynağını görüntüle</string>
+    <string name="requires_adb_dialog_copy_success">ADB komutu kopyalandı!</string>
+    <string name="requires_adb_dialog_copy_button">ADB komutunu kopyala</string>
+</resources>
