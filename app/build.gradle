@@ -17,7 +17,6 @@ android {
     }
 
     buildFeatures.viewBinding true
-    androidResources.generateLocaleConfig true
 
     buildTypes {
         release {
