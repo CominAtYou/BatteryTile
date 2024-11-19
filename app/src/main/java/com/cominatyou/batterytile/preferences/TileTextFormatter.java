@@ -7,6 +7,7 @@ import android.os.BatteryManager;
 import android.os.Build;
 
 import java.text.DecimalFormat;
+import java.time.Duration;
 import java.util.HashMap;
 
 /**
@@ -38,7 +39,7 @@ public class TileTextFormatter {
 
         // Temperature of the battery
         formatters.put("t", batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) / 10f); // Celsius
-        formatters.put("f", (int) (batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) / 10 * 1.8 + 32)); // Fahrenheit
+        formatters.put("f", (int) ((double) batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) / 10 * 1.8 + 32)); // Fahrenheit
 
         // Voltage of the battery - provided as mV by Android, so divide by 1000 to get volts
         formatters.put("v", numberFormat.format(voltage / 1000f));
@@ -48,6 +49,24 @@ public class TileTextFormatter {
 
         // Battery level
         formatters.put("l", batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0));
+
+        // Remaining charge time
+        final long remainingTime = context.getSystemService(BatteryManager.class).computeChargeTimeRemaining();
+
+        // I haven't implemented restrictions to ensure that this is only used when charging
+        // so just set the values to 0 if we're not charging
+        if (remainingTime == -1) {
+            formatters.put("h", "0");
+            formatters.put("m", "0");
+        }
+        else {
+            final Duration duration = Duration.ofMillis(remainingTime);
+            final long hours = duration.toHours();
+            final long minutes = duration.minusHours(hours).toMinutes();
+
+            formatters.put("h", hours);
+            formatters.put("m", minutes);
+        }
     }
 
     public String format(String format) {
