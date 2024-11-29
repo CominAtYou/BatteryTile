@@ -71,7 +71,7 @@
                 android:textColor="?android:attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/info_icon"
-                android:text="@string/activity_edit_tile_text_info_text"/>
+                android:text="@string/activity_edit_discharging_tile_text_info_text"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

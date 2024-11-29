@@ -8,6 +8,7 @@ import android.widget.Toast;
 import android.window.OnBackInvokedDispatcher;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 
@@ -35,7 +36,9 @@ public class EditTileTextActivity extends AppCompatActivity {
         final boolean isEditingChargingText = getIntent().getBooleanExtra("isEditingChargingText", false);
         final String preference_key = isEditingChargingText ? "charging_text" : "discharging_text";
 
-        binding.infoText.setText(getString(R.string.activity_edit_tile_text_info_text, getString(isEditingChargingText ? R.string.activity_edit_tile_text_info_text_default_charging : R.string.activity_edit_tile_text_info_text_default_discharging)));
+        final @StringRes int infoTextRes = isEditingChargingText ? R.string.activity_edit_charging_tile_text_info_text : R.string.activity_edit_discharging_tile_text_info_text;
+
+        binding.infoText.setText(getString(infoTextRes, getString(isEditingChargingText ? R.string.activity_edit_tile_text_info_text_default_charging : R.string.activity_edit_tile_text_info_text_default_discharging)));
 
         binding.editTileTextEditText.setText(getSharedPreferences("preferences", MODE_PRIVATE).getString(preference_key, ""));
 
