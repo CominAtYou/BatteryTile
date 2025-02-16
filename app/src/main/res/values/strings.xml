@@ -10,20 +10,7 @@
     <string name="charging_more_than_one_hour_left">%1$d%% • %2$dh %3$dm until full</string>
     <string name="charging_less_than_one_hour_left">%1$d%% • %2$dm until full</string>
     <string name="preferences_bottom_sheet_title">Settings</string>
-    <string name="emulate_power_save_tile_preference_title">Act as Battery Saver tile</string>
-    <string name="emulate_power_save_tile_preference_description">The tile will only display the state of Battery Saver when this is on.</string>
-    <string name="enable_tap_action_preference_title">Tap to toggle Battery Saver</string>
-    <string name="enable_tap_action_preference_description">Toggle Battery Saver by tapping on the tile</string>
-    <string name="requires_adb_dialog_title">Hold up!</string>
-    <string name="requires_adb_dialog_description">To enable this, you\'ll need to grant the app permission to do modify system settings. To do that, connect your phone to your computer with USB debugging enabled, and issue the following command via ADB:</string>
-    <string name="requires_adb_dialog_description_second_half">Once you\'ve done that, you\'ll be able to enable this setting.</string>
     <string name="battery_tile_label">Battery</string>
-    <string name="power_save_tile_label">Battery Saver</string>
-    <string name="power_saver_tile_on_subtitle">On</string>
-    <string name="power_saver_tile_off_subtitle">Off</string>
-    <string name="power_save_tile_unavailable_subtitle">Unavailable</string>
-    <string name="power_save_tile_warning_title">Hold up! This is important.</string>
-    <string name="power_save_system_warning_description">Android doesn\'t natively support apps changing the state of Battery Saver, and as such, this feature is experimental as of now.\n\nThe workaround the app uses can cause the Android System to no longer be able to control the Battery Saver setting after tapping the tile, meaning that things like the system Battery Saver tile won\'t work.\n\nIf you encounter this, tapping this tile (the tile from this app) again to restore the Battery Saver setting to its previous state should fix it.</string>
     <string name="info_in_title_option_description">Turn this on if you only see \"Battery\" after adding the tile.</string>
     <string name="info_in_title_option_title">Show battery info in tile title</string>
     <string name="dialog_customize_tile_title">Customise tile</string>
@@ -59,6 +46,4 @@
     <string name="menu_edit_title_save_button">Save</string>
     <string name="bottom_sheet_preferences_dynamic_tile_icon_title">Dynamic tile icon</string>
     <string name="bottom_sheet_preferences_dynamic_tile_icon_description">Display the power source in the tile icon when charging</string>
-    <string name="requires_adb_dialog_copy_success">ADB command copied!</string>
-    <string name="requires_adb_dialog_copy_button">Copy ADB command</string>
 </resources>
