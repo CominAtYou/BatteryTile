@@ -1,3 +1,5 @@
+### This branch is for the Google Play release of Battery Tile, which is missing features from the GitHub version. For the GitHub version, please switch to the "master" branch.
+
 # BatteryTile
 An Android Quick Settings tile that displays the current battery state and percentage, and a long-press action to open the battery settings.
 
