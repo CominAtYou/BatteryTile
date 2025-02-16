@@ -9,7 +9,7 @@ android {
         applicationId "com.cominatyou.batterytile"
         minSdk 29
         targetSdk 35
-        versionCode 14
+        versionCode 15
         versionName "1.8.0-googleRelease"
         multiDexEnabled true
 
