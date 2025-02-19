@@ -27,6 +27,10 @@ Alternatively, you can get it on F-Droid via the IzzyOnDroid repo:
      alt="Get it on IzzyOnDroid"
      height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.cominatyou.batterytile)
 
+The app is also available on Google Play. Please note that the Google Play version is only localized for English and does not support the "act as Battery Saver tile" feature.
+
+[<img src="https://i.imgur.com/F9cBTKf.png"
+     alt="Get it on Google Play" height="50">](https://play.google.com/store/apps/details?id=com.cominatyou.batterytile)
 
 ## Screenshots
 The tile can be customized in various ways, such as:
